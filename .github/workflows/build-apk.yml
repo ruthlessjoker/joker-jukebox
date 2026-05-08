@@ -20,9 +20,9 @@ jobs:
         run: |
           echo "Downloading fresh Gradle..."
           curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.7-bin.zip
-          unzip -q gradle.zip
-          find . -name "gradle-wrapper.jar" -type f | head -1 | xargs -I {} cp {} gradle/wrapper/gradle-wrapper.jar
-          rm -rf gradle.zip gradle-*
+          unzip -q gradle.zip -d extracted_gradle
+          find extracted_gradle -name "gradle-wrapper.jar" -type f | head -1 | xargs -I {} cp {} gradle/wrapper/gradle-wrapper.jar
+          rm -rf gradle.zip extracted_gradle
           echo "Wrapper replaced!"
 
       - name: Build APK
