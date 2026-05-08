@@ -17,13 +17,22 @@ jobs:
           distribution: 'temurin'
           cache: gradle
       
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+      - name: Download Gradle Wrapper
+        run: |
+          mkdir -p gradle/wrapper
+          curl -L https://services.gradle.org/distributions/gradle-8.7-bin.zip -o gradle.zip
+          unzip -q gradle.zip
+          cp gradle-8.7/gradle/wrapper/gradle-wrapper.jar gradle/wrapper/
+          rm -rf gradle-8.7 gradle.zip
+      
+      - name: Create Gradlew Script
+        run: |
+          echo '#!/bin/sh' > gradlew
+          echo 'exec java -classpath gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain "$@"' >> gradlew
+          chmod +x gradlew
       
       - name: Build APK
-        run: |
-          chmod +x gradlew || true
-          ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleDebug --no-daemon
       
       - uses: actions/upload-artifact@v4
         with:
