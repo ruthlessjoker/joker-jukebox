@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.androidx.media3.ui)
     implementation(libs.lottie.compose)
     implementation(libs.coil.compose)
-    implementation(libs.coil.network)
+    implementation(libs.coil.network.okhttp)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
