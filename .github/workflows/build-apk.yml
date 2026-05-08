@@ -18,11 +18,12 @@ jobs:
 
       - name: Fix Corrupt Gradle Wrapper
         run: |
-          echo "Downloading fresh gradle-wrapper.jar..."
+          echo "Downloading fresh Gradle..."
           curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.7-bin.zip
-          unzip -p gradle.zip gradle-8.7/gradle/wrapper/gradle-wrapper.jar > gradle/wrapper/gradle-wrapper.jar
-          rm gradle.zip
-          echo "Wrapper fixed!"
+          unzip -q gradle.zip
+          find . -name "gradle-wrapper.jar" -type f | head -1 | xargs -I {} cp {} gradle/wrapper/gradle-wrapper.jar
+          rm -rf gradle.zip gradle-*
+          echo "Wrapper replaced!"
 
       - name: Build APK
         run: |
