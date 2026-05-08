@@ -16,14 +16,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Fix Corrupt Gradle Wrapper
+      - name: Replace Corrupt Wrapper
         run: |
-          echo "Downloading fresh Gradle..."
-          curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.7-bin.zip
-          unzip -q gradle.zip -d extracted_gradle
-          find extracted_gradle -name "gradle-wrapper.jar" -type f | head -1 | xargs -I {} cp {} gradle/wrapper/gradle-wrapper.jar
-          rm -rf gradle.zip extracted_gradle
-          echo "Wrapper replaced!"
+          echo "Removing corrupt file..."
+          rm -f gradle/wrapper/gradle-wrapper.jar
+          echo "Downloading fresh wrapper JAR..."
+          curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradle/wrapper/gradle-wrapper.jar
+          echo "Done!"
 
       - name: Build APK
         run: |
