@@ -9,9 +9,9 @@
     <application
         android:name=".JokerJukeboxApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_play"
         android:label="JokeBox"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@android:drawable/ic_menu_play"
         android:supportsRtl="true"
         android:theme="@style/Theme.JokerJukebox"
         android:usesCleartextTraffic="true">
