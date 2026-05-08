@@ -16,18 +16,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Replace Corrupt Wrapper
-        run: |
-          echo "Removing corrupt file..."
-          rm -f gradle/wrapper/gradle-wrapper.jar
-          echo "Downloading fresh wrapper JAR..."
-          curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradle/wrapper/gradle-wrapper.jar
-          echo "Done!"
-
-      - name: Build APK
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+      # This action installs Gradle automatically and handles the build
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
