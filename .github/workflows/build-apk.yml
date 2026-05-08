@@ -21,8 +21,8 @@ jobs:
         run: |
           mkdir -p gradle/wrapper
           curl -L https://services.gradle.org/distributions/gradle-8.7-bin.zip -o gradle.zip
-          unzip -q gradle.zip
-          cp gradle-8.7/gradle/wrapper/gradle-wrapper.jar gradle/wrapper/
+          unzip gradle.zip
+          find . -name "gradle-wrapper.jar" -exec cp {} gradle/wrapper/ \;
           rm -rf gradle-8.7 gradle.zip
       
       - name: Create Gradlew Script
